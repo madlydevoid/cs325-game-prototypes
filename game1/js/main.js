@@ -39,6 +39,18 @@ function create() {
 
 		spriteg.events.onInputDown.add(gpress, this);
 
+		
+		//can make 10 and ever time a green is pressed move a new red in...
+		var spriters=game.addgroup();
+		spriters.inputEnabled = true;
+
+		spriters.input.useHandCursor = true;
+
+		spriters.events.onInputDown.add(rpress, this);
+
+		var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
+		
+	
 		timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
 
 		timer = game.time.create(false);
@@ -66,6 +78,7 @@ function gpress (spriteg) {
 
 		spriteg.y=Math.random() *800;
 
+		
 	}
 	function rpress(spriter) {
 		playFx(press);
