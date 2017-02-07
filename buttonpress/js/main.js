@@ -67,7 +67,7 @@ function create() {
 
 function gpress (greenbut) {
 
-		playFx(press);
+		fx.play(press);
 		counter++;
 
 		greenbut.x=Math.random() *800;
