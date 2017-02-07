@@ -13,11 +13,12 @@ window.onload = function() {
     
     "use strict";
     
-    var game = new Phaser.Game( 800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, } );
+    var game = new Phaser.Game( 800, 800, Phaser.AUTO, 'button press', { preload: preload, create: create, update: update, } );
     
     function preload() {
-        // Load an image and call it 'logo'.
-        game.load.image( 'logo', 'assets/phaser.png' );
+        game.load.image( 'greenbut', 'assets/green_button.png' );
+	game.load.image( 'redbut', 'assets/red_button.jpg' );
+	game.load.audio('blip', 'assets/Robot_blip.wav');
     }
     
   
@@ -28,14 +29,15 @@ window.onload = function() {
 	var highS=0;
 	
 function create() {
-    
-		var sprite = game.add.sprite(Math.random() *800 , Math.random() *800, 'phaser');
+   
+		press=game.add.audio('blip');
+		var spriteg = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
 
-		sprite.inputEnabled = true;
+		spriteg.inputEnabled = true;
 
-		sprite.input.useHandCursor = true;
+		spriteg.input.useHandCursor = true;
 
-		sprite.events.onInputDown.add(listener, this);
+		spriteg.events.onInputDown.add(gpress, this);
 
 		timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
 
@@ -55,13 +57,22 @@ function create() {
 	
 	
 
-function listener (sprite) {
+function gpress (spriteg) {
 
+		playFx(press);
 		counter++;
 
-		sprite.x=Math.random() *800;
+		spriteg.x=Math.random() *800;
 
-		sprite.y=Math.random() *800;
+		spriteg.y=Math.random() *800;
+
+	}
+	function rpress(spriter) {
+		playFx(press);
+		counter--;
+		spriteg.x=Math.random() *800;
+
+		spriteg.y=Math.random() *800;
 
 	}
 	
