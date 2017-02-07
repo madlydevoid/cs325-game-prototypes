@@ -27,6 +27,7 @@ window.onload = function() {
 
 	var timer=100;
 	var highS=0;
+	var press;
 	
 function create() {
    
