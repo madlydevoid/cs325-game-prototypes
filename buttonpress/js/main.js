@@ -17,8 +17,8 @@ window.onload = function() {
     
     function preload() {
         game.load.image( 'greenbut', 'assets/green_button.png' );
-	game.load.image( 'redbut', 'assets/red_button.jpg' );
-	game.load.audio('blip', 'assets/Robot_blip.wav');
+		game.load.image( 'redbut', 'assets/red_button.jpg' );
+		game.load.audio('blip', 'assets/Robot_blip.wav');
     }
     
   
@@ -30,7 +30,7 @@ window.onload = function() {
 	
 function create() {
    
-		//press=game.add.audio('blip');
+		press=game.add.audio('blip');
 		var greenbut = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
 
 		greenbut.inputEnabled = true;
@@ -66,7 +66,7 @@ function create() {
 
 function gpress (greenbut) {
 
-		//playFx(press);
+		playFx(press);
 		counter++;
 
 		greenbut.x=Math.random() *800;
