@@ -17,8 +17,8 @@ window.onload = function() {
     
     function preload() {
         game.load.image( 'greenbut', 'assets/green_button.png' );
-		game.load.image( 'redbut', 'assets/red_button.jpg' );
-		game.load.audio('blip', 'assets/Robot_blip.wav');
+	game.load.image( 'redbut', 'assets/red_button.jpg' );
+	game.load.audio('blip', 'assets/Robot_blip.wav');
     }
     
   
@@ -27,8 +27,8 @@ window.onload = function() {
 
 	var timer=100;
 	var highS=0;
-	var spriters;
-	function create() {
+	
+function create() {
    
 		press=game.add.audio('blip');
 		var spriteg = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
@@ -41,15 +41,13 @@ window.onload = function() {
 
 		
 		//can make 10 and ever time a green is pressed move a new red in...
-		spriters=game.addgroup();
-		spriters.inputEnabled = true;
+		//var spriters=game.addgroup();
+		//spriters.inputEnabled = true;
 
-		spriters.input.useHandCursor = true;
-
+		//spriters.input.useHandCursor = true;
 		//spriters.events.onInputDown.add(rpress, this);
-
-		var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
-		spriter.events.onInputDown.add(rpress, this);
+		//var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
+		
 	
 		timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
 
@@ -69,7 +67,7 @@ window.onload = function() {
 	
 	
 
-	function gpress (spriteg) {
+function gpress (spriteg) {
 
 		playFx(press);
 		counter++;
@@ -77,21 +75,19 @@ window.onload = function() {
 		spriteg.x=Math.random() *800;
 
 		spriteg.y=Math.random() *800;
-		
-		var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
-		spriter.events.onInputDown.add(rpress, this);
+
 		
 	}
-	function rpress(spriter) {
+	/*function rpress(spriter) {
 		playFx(press);
 		counter--;
 		spriteg.x=Math.random() *800;
 
 		spriteg.y=Math.random() *800;
 
-	}
+	}*/
 	
-	function updateTime(){
+function updateTime(){
 
 		if(highS<counter){
         
@@ -101,9 +97,9 @@ window.onload = function() {
 
 		counter=0;
 	
-	}
-    function update() {
-        game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
+}
+    	function update() {
+        	game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
     
 		game.debug.text("High Score: " + highS, 32, 64);
     
