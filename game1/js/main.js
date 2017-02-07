@@ -17,8 +17,8 @@ window.onload = function() {
     
     function preload() {
         game.load.image( 'greenbut', 'assets/green_button.png' );
-	game.load.image( 'redbut', 'assets/red_button.jpg' );
-	game.load.audio('blip', 'assets/Robot_blip.wav');
+		game.load.image( 'redbut', 'assets/red_button.jpg' );
+		game.load.audio('blip', 'assets/Robot_blip.wav');
     }
     
   
@@ -27,8 +27,8 @@ window.onload = function() {
 
 	var timer=100;
 	var highS=0;
-	
-function create() {
+	var spriters;
+	function create() {
    
 		press=game.add.audio('blip');
 		var spriteg = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
@@ -41,15 +41,15 @@ function create() {
 
 		
 		//can make 10 and ever time a green is pressed move a new red in...
-		var spriters=game.addgroup();
+		spriters=game.addgroup();
 		spriters.inputEnabled = true;
 
 		spriters.input.useHandCursor = true;
 
-		spriters.events.onInputDown.add(rpress, this);
+		//spriters.events.onInputDown.add(rpress, this);
 
 		var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
-		
+		spriter.events.onInputDown.add(rpress, this);
 	
 		timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
 
@@ -69,7 +69,7 @@ function create() {
 	
 	
 
-function gpress (spriteg) {
+	function gpress (spriteg) {
 
 		playFx(press);
 		counter++;
@@ -77,7 +77,9 @@ function gpress (spriteg) {
 		spriteg.x=Math.random() *800;
 
 		spriteg.y=Math.random() *800;
-
+		
+		var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
+		spriter.events.onInputDown.add(rpress, this);
 		
 	}
 	function rpress(spriter) {
@@ -89,7 +91,7 @@ function gpress (spriteg) {
 
 	}
 	
-function updateTime(){
+	function updateTime(){
 
 		if(highS<counter){
         
@@ -99,9 +101,9 @@ function updateTime(){
 
 		counter=0;
 	
-}
-    	function update() {
-        	game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
+	}
+    function update() {
+        game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
     
 		game.debug.text("High Score: " + highS, 32, 64);
     
