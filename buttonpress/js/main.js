@@ -49,7 +49,7 @@ function create() {
 		//var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
 		
 	
-		timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
+		//timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
 
 		timer = game.time.create(false);
 
@@ -99,10 +99,10 @@ function updateTime(){
 	
 }
 function update() {
-        game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
+        //game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
     
-		game.debug.text("High Score: " + highS, 32, 64);
+		//game.debug.text("High Score: " + highS, 32, 64);
     
-		game.debug.text("You clicked " + counter + " times!", 32, 97);
+		//game.debug.text("You clicked " + counter + " times!", 32, 97);
 }
 };
