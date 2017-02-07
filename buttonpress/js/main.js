@@ -30,14 +30,14 @@ window.onload = function() {
 	
 function create() {
    
-		press=game.add.audio('blip');
-		var spriteg = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
+		//press=game.add.audio('blip');
+		var greenbut = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
 
-		spriteg.inputEnabled = true;
+		greenbut.inputEnabled = true;
 
-		spriteg.input.useHandCursor = true;
+		greenbut.input.useHandCursor = true;
 
-		spriteg.events.onInputDown.add(gpress, this);
+		greenbut.events.onInputDown.add(gpress, this);
 
 		
 		//can make 10 and ever time a green is pressed move a new red in...
@@ -67,25 +67,25 @@ function create() {
 	
 	
 
-function gpress (spriteg) {
+function gpress (greenbut) {
 
-		playFx(press);
+		//playFx(press);
 		counter++;
 
-		spriteg.x=Math.random() *800;
+		greenbut.x=Math.random() *800;
 
-		spriteg.y=Math.random() *800;
+		greenbut.y=Math.random() *800;
 
 		
 	}
-	/*function rpress(spriter) {
-		playFx(press);
-		counter--;
-		spriteg.x=Math.random() *800;
+	//function rpress(spriter) {
+	//	playFx(press);
+	//	counter--;
+	//	spriteg.x=Math.random() *800;
 
-		spriteg.y=Math.random() *800;
+	//	spriteg.y=Math.random() *800;
 
-	}*/
+	//}
 	
 function updateTime(){
 
@@ -98,11 +98,11 @@ function updateTime(){
 		counter=0;
 	
 }
-    	function update() {
-        	game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
+function update() {
+        game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
     
 		game.debug.text("High Score: " + highS, 32, 64);
     
 		game.debug.text("You clicked " + counter + " times!", 32, 97);
-    }
+}
 };
