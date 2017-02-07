@@ -13,7 +13,7 @@ window.onload = function() {
     
     "use strict";
     
-    var game = new Phaser.Game( 800, 800, Phaser.AUTO, 'button press', { preload: preload, create: create, update: update, } );
+    var game = new Phaser.Game( 800, 800, Phaser.AUTO, 'buttonpress', { preload: preload, create: create, update: update, } );
     
     function preload() {
         game.load.image( 'greenbut', 'assets/green_button.png' );
