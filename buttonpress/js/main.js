@@ -13,11 +13,11 @@ window.onload = function() {
     
     //"use strict";
     
-    var game = new Phaser.Game( 800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, } );
+    var game = new Phaser.Game( 700, 700, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, } );
     
     function preload() {
         game.load.image( 'greenbut', 'assets/green_button.png' );
-		game.load.image( 'redbut', 'assets/red_button.jpg' );
+		game.load.image( 'redbut', 'assets/red_button.png' );
 		game.load.audio('blip', 'assets/Robot_blip.wav');
     }
     
@@ -28,79 +28,74 @@ window.onload = function() {
 	var timer=100;
 	var highS=0;
 	var press;
-	
-function create() {
-   
+	var allred;
+	function create() {
+   		//Sound
 		press=game.add.audio('blip');
-		var greenbut = game.add.sprite(Math.random() *800 , Math.random() *800, 'greenbut');
-
+		//group
+		allred=game.add.group();
+		
+		//Green Button
+		var greenbut = game.add.sprite(Math.random() *680+10 , Math.random() *680+10, 'greenbut');
 		greenbut.inputEnabled = true;
-
 		greenbut.input.useHandCursor = true;
-
 		greenbut.events.onInputDown.add(gpress, this);
 
 		
-		//can make 10 and ever time a green is pressed move a new red in...
-		//var spriters=game.addgroup();
-		//spriters.inputEnabled = true;
-
-		//spriters.input.useHandCursor = true;
-		//spriters.events.onInputDown.add(rpress, this);
-		//var spriter=spriters.create(Math.random() *800 , Math.random() *800, 'redbut');
-		timer_text=game.add.text(20,20, '', { fill: '#ffffff' });
+		//Timer
 		timer = game.time.create(false);
-
-
-		//  Set a TimerEvent to occur after 1 second
-
-		timer.loop(10000, updateTime, this);
-
-
-		//  Start the timer running
+		timer.loop(60000, updateTime, this);
     
 		timer.start();
 
 	}
 	
-	
+	//What happens on pressing the green button
+	function gpress (greenbut) {
 
-function gpress (greenbut) {
-
-		fx.play(press);
+		press.play();
 		counter++;
 
-		greenbut.x=Math.random() *800;
+		greenbut.x=Math.random() *680+10;
 
-		greenbut.y=Math.random() *800;
+		greenbut.y=Math.random() *680+10;
+		
+		//Makes new redbutton
+		var i;
+		for(i=0; i<Math.ceil(counter/10); i++){
+			var redbut=game.add.sprite(Math.random() *680+10 , Math.random() *680+10, 'redbut');
+			redbut.inputEnabled = true;
+			redbut.input.useHandCursor = true;
+			redbut.events.onInputDown.add(rpress, this);
+			allred.add(redbut);
+		}
 
 		
 	}
-	//function rpress(spriter) {
-	//	playFx(press);
-	//	counter--;
-	//	spriteg.x=Math.random() *800;
+	//what happens when red is pressed
+	function rpress(redbut) {
+		press.play();
+		counter--;
+		redbut.x=Math.random() *680+10;
+		redbut.y=Math.random() *680+10;
 
-	//	spriteg.y=Math.random() *800;
-
-	//}
+	}
 	
-function updateTime(){
-
+	//when time runs out
+	function updateTime(){
 		if(highS<counter){
-        
 			highS=counter;
-    
 		}
-
 		counter=0;
+		allred.destroy(true,true);
+	}
 	
-}
-function update() {
+	//score display
+	function update() {
         game.debug.text('Time left: ' + timer.duration.toFixed(0), 32, 32);
     
 		game.debug.text("High Score: " + highS, 32, 64);
     
 		game.debug.text("You clicked " + counter + " times!", 32, 97);
-}
+	}
 };
