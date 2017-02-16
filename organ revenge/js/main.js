@@ -17,64 +17,64 @@ window.onload = function() {
     
     function preload() {
         // Load an image and call it 'logo'.
-        game.load.image( 'bad', 'assets/red_button.png' );
-        game.load.image( 'phaser', 'assets/green_button.png' );
+        game.load.image( 'cig', 'assets/Cigarette_DS.png' ); //wikipidia
+        game.load.image( 'bad', 'assets/green_button.png' );
+        game.load.audio('blip', 'assets/Robot_blip.wav');
     }
     var timer;
     var time=0;
     var enemies;
     var me;
     var cursors;
-    var stateText;
+    var text;
     var gameOn=1;
     var score;
+    var sDeath;
     function create() {
-        me=game.add.sprite(game.world.centerX,game.world.centerX, 'phaser');
+        me=game.add.sprite(game.world.centerX,game.world.centerX, 'cig');
         game.physics.enable(me, Phaser.Physics.ARCADE);
         cursors = game.input.keyboard.createCursorKeys();
         
-        enemies=game.add.group();
+        sDeath=game.add.audio('blip');
         
-        //stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '42px Arial', fill: '#fff' });
-    	//stateText.anchor.setTo(0.5, 0.5);
-    	//stateText.visible = false;
+        game.stage.backgroundColor = "#4488AA";
+        
+        enemies=game.add.group();
         
         timer = game.time.create(false);
 		timer.loop(1000, updateTime, this);
 		timer.start()
     }
     function killGame(){
-    	//show game over, show score
+    	sDeath.play();
     	score=time;
-    	//stateText.text=" GAME OVER \n Score: Click to restart";
-        //stateText.visible = true;
         gameOn=0;
         me.kill();
         game.input.onTap.addOnce(restart);
     }
     function update() {
-    if(gameOn==1){
-		game.physics.arcade.overlap(enemies, me, killGame);
+    	if(gameOn==1){
+			game.physics.arcade.overlap(enemies, me, killGame, null, this);
     	
-        if (cursors.left.isDown){
-       		me.x -= 8;
-       	}
-    	else if (cursors.right.isDown){
-        	me.x += 8;
-    	}
+       		if (cursors.left.isDown){
+       			me.x -= 8;
+       		}
+    		else if (cursors.right.isDown){
+        		me.x += 8;
+    		}
 
-    	if (cursors.up.isDown)
-    	{
-        	me.y -= 8;
+    		if (cursors.up.isDown)
+    		{
+        		me.y -= 8;
+    		}
+    		else if (cursors.down.isDown)
+    		{
+        		me.y += 8;
+    		}
     	}
-    	else if (cursors.down.isDown)
-    	{
-        	me.y += 8;
+    	else{
+    		//game.debug.text(" GAME OVER \n Score:" +score+"\n Click to restart", game.world.centerX,game.world.centerY,' ', '42px Arial');
     	}
-    }
-    else{
-    	game.debug.text(" GAME OVER \n Score:" +score+"\n Click to restart", game.world.centerX,game.world.centerY,' ', { font: '42px Arial', fill: '#fff' });
-    }
     }
     function restart(){
     	time=0;
@@ -83,7 +83,6 @@ window.onload = function() {
     	me.revive();
     	me.x=game.world.centerX;
     	me.y=game.world.centerY;
-    	//stateText.visable=false;
     }
     function ded(sprite){
     	sprite.kill();
@@ -91,7 +90,9 @@ window.onload = function() {
     function updateTime(){
     	time++;
     	var sect=time/5;
-    	if(time%1===0){
+    	//if(time%1===0){
+    	var i;
+    	for(i=0; i<sect; i++){
     		//spawn
     		var rand;
     		rand=Math.round(Math.random()*3);
@@ -101,28 +102,28 @@ window.onload = function() {
     			case(0):
     				newE=game.add.sprite(0, game.world.randomY, 'bad');
     				game.physics.enable(newE, Phaser.Physics.ARCADE);
-    				newE.body.velocity.x=200+(sect*40);
+    				newE.body.velocity.x=240;
     				newE.events.onOutOfBounds.add(ded,newE);
     				break;
     			//from right
     			case(1):
     				newE=game.add.sprite(game.world.width,game.world.randomY, 'bad');
     				game.physics.enable(newE, Phaser.Physics.ARCADE);
-    				newE.body.velocity.x=-200-(sect*40);
+    				newE.body.velocity.x=-240;
     				newE.events.onOutOfBounds.add(ded,newE);
     				break;
     			//from up
     			case(2):
     				newE=game.add.sprite(game.world.randomX,0, 'bad');
     				game.physics.enable(newE, Phaser.Physics.ARCADE);
-    				newE.body.velocity.y=200+(sect*40);
+    				newE.body.velocity.y=240;
     				newE.events.onOutOfBounds.add(ded,newE);
     				break;
     			//from down
     			case(3):
     				newE=game.add.sprite(game.world.randomX,600, 'bad');
     				game.physics.enable(newE, Phaser.Physics.ARCADE);
-    				newE.body.velocity.y=-200-(sect*40);
+    				newE.body.velocity.y=-240;
     				newE.events.onOutOfBounds.add(ded,newE);
     				break;
     		}
