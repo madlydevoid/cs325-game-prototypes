@@ -27,60 +27,69 @@ function make_main_game_state( game )
     var count=0;
     var tries=0;
     function create() {
+    	game.stage.backgroundColor = "#b0b5b7";
+    	count=0;
+    	tries=0;
         //place 6 buttons on side, place bomb, generate key.
         // When button is pressed add color to 4 array and table, when full compare
         //if compare fails check if end,
         var i;
         var rand;
-        for(i=0; i<3 ;i++){
+        for(i=0; i<4 ;i++){
         	rand=Math.round(Math.random()*5);
         	//black,blue,orange,yellow,teal,purple
         	key[i]=rand;
         }
-        butbk= game.add.button(10, 30, 'black', clickBk, this, 2, 1, 0);
-        butbu= game.add.button(50, 30, 'blue', clickBu, this, 2, 1, 0);
-        butor= game.add.button(90, 30, 'orange', clickOr, this, 2, 1, 0);
-        butye= game.add.button(130, 30, 'yellow', clickYe, this, 2, 1, 0);
-        buttl= game.add.button(170, 30, 'teal', clickTl, this, 2, 1, 0);
-        butpr= game.add.button(210, 30, 'purple', clickPr, this, 2, 1, 0);
+        butbk= game.add.button(10, 600, 'black', clickBk, this, 2, 1, 0);
+        butbu= game.add.button(50, 600, 'blue', clickBu, this, 2, 1, 0);
+        butor= game.add.button(90, 600, 'orange', clickOr, this, 2, 1, 0);
+        butye= game.add.button(130, 600, 'yellow', clickYe, this, 2, 1, 0);
+        buttl= game.add.button(170, 600, 'teal', clickTl, this, 2, 1, 0);
+        butpr= game.add.button(210, 600, 'purple', clickPr, this, 2, 1, 0);
     }
     function clickBk(){
-    	input[count]=1;
+    	input[count]=0;
+    	var sprite = game.add.sprite(10+(30*count), 10+(40*tries), 'black');
     	count++;
     	if(count==4){
     		newrow();
     	}
     }
     function clickBu(){
-    	input[count]=2;
+    	input[count]=1;
+    	var sprite = game.add.sprite(10+(30*count), 10+(40*tries), 'blue');
     	count++;
     	if(count==4){
     		newrow();
     	}
     }
     function clickOr(){
-    	input[count]=3;
+    	input[count]=2;
+    	var sprite = game.add.sprite(10+(30*count), 10+(40*tries), 'orange');
     	count++;
     	if(count==4){
     		newrow();
     	}
     }
     function clickYe(){
-    	input[count]=4;
+    	input[count]=3;
+    	var sprite = game.add.sprite(10+(30*count), 10+(40*tries), 'yellow');
     	count++;
     	if(count==4){
     		newrow();
     	}
     }
     function clickTl(){
-    	input[count]=5;
+    	input[count]=4;
+    	var sprite = game.add.sprite(10+(30*count), 10+(40*tries), 'teal');
     	count++;
     	if(count==4){
     		newrow();
     	}
     }
     function clickPr(){
-    	input[count]=6;
+    	input[count]=5;
+    	var sprite = game.add.sprite(10+(30*count), 10+(40*tries), 'purple');
     	count++;
     	if(count==4){
     		newrow();
@@ -93,20 +102,34 @@ function make_main_game_state( game )
     	var j;
     	var rightplace=0;
     	var wrongplace=0;
+    	//if repeat ie gfrr guess gfgf 2nd g shouldnt see, 
+    	console.log(input);
+    	console.log(key);
     	for(i=0;i<4;i++){
-    		for(j=0;j<4;j++){
-    			if(input[i]==key[j]){
-    				if(i==j){
-    					rightplace++;
-    				}
-    				else{
+    		if(input[i]==key[i]){
+    			rightplace++;
+    		}
+    	}
+    	var temp=[];
+    	temp[0]=key[0];
+    	temp[1]=key[1];
+    	temp[2]=key[2];
+    	temp[3]=key[3];
+    	for(i=0;i<4;i++){
+    		if(input[i]!=key[i]){
+    			for(j=0;j<4;j++){
+    				//input can only be correct once 
+    				if(input[i]==temp[j] && input[j]!=temp[j]){
+    					console.log(input[i]);
+    					console.log(key[j]);
     					wrongplace++;
+    					temp[j]=-1;
+    					j=4;
     				}
     			}
     		}
     	}
     	count=0;
-    	tries++;
     	if(rightplace==4){
     		game.state.start("won");
     	}
@@ -132,6 +155,7 @@ function make_main_game_state( game )
     			spot++;
     		}
     	}
+    	tries++;
     }
     
     function update() {
