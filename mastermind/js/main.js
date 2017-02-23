@@ -16,6 +16,7 @@ function make_main_game_state( game )
         game.load.image( 'purple', 'assets/purple.png' ); //5
         game.load.image( 'bomb', 'assets/bomb.png' );
         game.load.image( 'back', 'assets/back.jpg' );
+        game.load.audio('exps', 'assets/exps.wav');
         //game.load.image( 'board', 'assets/phaser.png' );
     }
     var key=[];
@@ -195,6 +196,9 @@ function won(game){
 }
 function lost(game){
 	function create(){
+		var exs=game.add.audio('exps');
+		exs.play();
+		
 		var sprite = game.add.sprite(0,0, 'back');
 		var style = { font: "30px Arial", fill: "##FFFFFF", align: "center" };
     	var text = game.add.text(game.world.centerX, game.world.centerY, "You lose", style);
