@@ -14,6 +14,8 @@ function make_main_game_state( game )
         game.load.image( 'yellow', 'assets/yellow.png' ); //3
         game.load.image( 'teal', 'assets/teal.png' ); //4
         game.load.image( 'purple', 'assets/purple.png' ); //5
+        game.load.image( 'bomb', 'assets/bomb.png' );
+        game.load.image( 'back', 'assets/back.jpg' );
         //game.load.image( 'board', 'assets/phaser.png' );
     }
     var key=[];
@@ -28,6 +30,7 @@ function make_main_game_state( game )
     var tries=0;
     function create() {
     	game.stage.backgroundColor = "#b0b5b7";
+    	var bmb = game.add.sprite(400, 50, 'bomb');
     	count=0;
     	tries=0;
         //place 6 buttons on side, place bomb, generate key.
@@ -166,8 +169,8 @@ function make_main_game_state( game )
 }
 function intro(game){
 	function create(){
-		var style = { font: "30px Arial", fill: "#ff0044", align: "center" };
-    	var text = game.add.text(game.world.centerX, game.world.centerY, "Defuse the bomb\nGuess the correct order of colors\nGreen=right color in right place\nRed=right color wrong place\nClick to start", style);
+		var style = { font: "30px Arial", fill: "#008000", align: "center" };
+    	var text = game.add.text(game.world.centerX, game.world.centerY, "The Ridler has set a bomb to explode\nAs usual his obsession has left you the\nmeans to defuse the bomb.\nGuess the correct order of colors\nGreen=right color in right place\nRed=right color wrong place\nClick to start", style);
     	text.anchor.set(0.5);
     
    		game.input.onTap.addOnce(playGame);
@@ -192,7 +195,8 @@ function won(game){
 }
 function lost(game){
 	function create(){
-		var style = { font: "30px Arial", fill: "#ff0044", align: "center" };
+		var sprite = game.add.sprite(0,0, 'back');
+		var style = { font: "30px Arial", fill: "##FFFFFF", align: "center" };
     	var text = game.add.text(game.world.centerX, game.world.centerY, "You lose", style);
     	text.anchor.set(0.5);
     
