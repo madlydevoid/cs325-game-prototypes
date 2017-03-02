@@ -6,7 +6,7 @@ function make_main_game_state( game )
         // Load an image and call it 'logo'.
         game.load.tilemap( 'Tmap', 'assets/demap.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tiles', 'assets/map.png');
-        game.load.image('man', 'assets/red_button.png');
+        game.load.image('man', 'assets/dude.png');
         game.load.image('c1', 'assets/cup1.png');
         game.load.image('c2', 'assets/cup2.png');
         game.load.image('c3', 'assets/cup3.png');
