@@ -13,6 +13,7 @@ function make_main_game_state( game )
         game.load.image('c4real', 'assets/cup4.png');
         game.load.image('c5', 'assets/cup5.png');
         game.load.image('port', 'assets/port.png');
+        game.load.audio('noise','assets/dung.mp3');
     }
     
     var map;
@@ -26,8 +27,13 @@ function make_main_game_state( game )
     var text;
     var style;
     var check;
+    var cupsFound;
     function create() {
+    	var exs=game.add.audio('noise');
+		exs.play();
+		
     	check=0;
+    	cupsFound=0;
     	//tilemap black magic
     	game.physics.startSystem(Phaser.Physics.ARCADE);
     	game.world.setBounds(0,0,6000,6000);
@@ -43,7 +49,7 @@ function make_main_game_state( game )
     	
     	//add collision to walls
     	var loop=0;
-    	var count=0;
+    	var count=1;
     	for(loop=0; loop<58; loop++){
     		for(count=0; count<58; count++){
     			var temp= map.getTile(count, loop, layer);
@@ -70,7 +76,7 @@ function make_main_game_state( game )
  		game.physics.arcade.enable(c3);
  		game.physics.arcade.enable(c1);
  		game.physics.arcade.enable(c5);
- 		style = { font: "32px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: man.width, align: "center" };
+ 		style = { font: "20px Arial", fill: "#ff0044", align: "center" };
     	text = game.add.text(0, 0, "This inferior cup can't sate me", style); 
     	text.visable=false;
     }
@@ -79,8 +85,22 @@ function make_main_game_state( game )
     	man.x=2300;
     	man.y=400;
     }
-    function cry(){
+    function cry(cup){
     	check=1;
+    	if(cupsFound==1){
+    		text.text="Maybe this dungeon hides a secret?";
+    	}
+    	if(cupsFound==2){
+    		text.text="Perhaps I should go to the alter room\n and pray for an answer";
+    	}
+    	if(cupsFound==3){
+    		text.text="The pool in the alter room seemed very\n suspicious";
+    	}
+    	if(cupsFound==4){
+    		text.text="The pool in the alter room seemed very\n suspicious";
+    	}
+    	cup.kill();
+    	cupsFound++;
     	game.time.events.add(Phaser.Timer.SECOND * 4, vanishText, this);
     }
     function vanishText(){
@@ -95,10 +115,10 @@ function make_main_game_state( game )
     	game.physics.arcade.overlap(port, man, teleport, null, this);
     	
     	game.physics.arcade.overlap(c4real, man, win, null, this);
-    	game.physics.arcade.overlap(c1, man, cry, null, this);
-    	game.physics.arcade.overlap(c2, man, cry, null, this);
-    	game.physics.arcade.overlap(c3, man, cry, null, this);
-    	game.physics.arcade.overlap(c5, man, cry, null, this);
+    	game.physics.arcade.overlap(c1, man, cry, null, c1);
+    	game.physics.arcade.overlap(c2, man, cry, null, c2);
+    	game.physics.arcade.overlap(c3, man, cry, null, c3);
+    	game.physics.arcade.overlap(c5, man, cry, null, c5);
     	
     	//movement
     	man.body.velocity.y=0;
@@ -145,7 +165,18 @@ function gameOver( game ){
    	}
     return { "create": create };
 }
-
+function intro(game){
+	function create(){
+		var style = { font: "30px Arial", fill: "#008000", align: "center" };
+    	var text = game.add.text(game.world.centerX, game.world.centerY, '"I require a specific kind of cup.\nCall me a cup snob if you must.\nMy search has led me here,\n a dungeon that holds many secrets"\nClick to start', style);
+    	text.anchor.set(0.5);
+   		game.input.onTap.addOnce(playGame);
+   	}
+   	function playGame(){
+   		game.state.start( "main" );
+   	}
+    return { "create": create };
+}
 window.onload = function() {
     // You might want to start with a template that uses GameStates:
     //     https://github.com/photonstorm/phaser/tree/v2.6.2/resources/Project%20Templates/Basic
@@ -163,5 +194,6 @@ window.onload = function() {
     
     game.state.add( "main", make_main_game_state( game ) );
     game.state.add( "over", gameOver( game ) );
-    game.state.start( "main" );
+    game.state.add( "intro", intro( game ) );
+    game.state.start( "intro" );
 };
