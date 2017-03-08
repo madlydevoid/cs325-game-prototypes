@@ -16,6 +16,8 @@ function make_main_game_state( game )
         game.load.image('c3', 'assets/cup3.png');
         game.load.image('c4real', 'assets/cup4.png');
         game.load.image('c5', 'assets/cup5.png');
+        game.load.image('arrow', 'assets/archerarrow.png');
+        
         game.load.image('port', 'assets/port.png');
         game.load.audio('noise','assets/dung.mp3');
         game.load.spritesheet('archer','assets/sprites/archer.png',65,65);
@@ -55,7 +57,7 @@ function make_main_game_state( game )
    			man.animations.add('attackleft', Phaser.ArrayUtils.numberArray(221,232), 20);
    			man.animations.add('attackdown', Phaser.ArrayUtils.numberArray(233,244), 20);
    			man.animations.add('attackright', Phaser.ArrayUtils.numberArray(245,256), 20);
-   			//man.animations.add('spec',Phaser.ArrayUtils.numberArray
+   			
 		}
 		if(view==2){
    			man=game.add.sprite(2000, 2000, 'mage');
@@ -63,7 +65,7 @@ function make_main_game_state( game )
    			man.animations.add('attackleft', Phaser.ArrayUtils.numberArray(175,179), 10);
    			man.animations.add('attackdown', Phaser.ArrayUtils.numberArray(180,184), 10);
    			man.animations.add('attackright', Phaser.ArrayUtils.numberArray(170,174), 10);
-   			//man.animations.add('spec', Phaser.ArrayUtils.numberArray
+   		
     	}
     	man.animations.add('walkup', Phaser.ArrayUtils.numberArray(105,112), 10);
    		man.animations.add('walkleft', Phaser.ArrayUtils.numberArray(118,125), 10);
@@ -78,8 +80,8 @@ function make_main_game_state( game )
     	//add collision to walls idk how to optimize
     	var loop=0;
     	var count=1;
-    	for(loop=0; loop<58; loop++){
-    		for(count=0; count<58; count++){
+    	for(loop=0; loop<61; loop++){
+    		for(count=0; count<61; count++){
     			var temp= map.getTile(count, loop, layer);
     			if(temp.properties.Collision==true){
     				temp.setCollision(true,true,true,true);
