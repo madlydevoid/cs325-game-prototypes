@@ -7,19 +7,34 @@ function make_main_game_state( game )
         game.load.image( 'logo', 'assets/phaser.png' );
     }
     
-    var bouncy;
-    
+    var turn;
+	var tank;
+    var tank2;
+    var heavy;
+    var heavy2;
+    var solider;
+    var solider2;
+    var scout;
+    var scout2;
+	var map;
     function create() {
         //spawn tiles map
         //spawn 4 units on each corner,
-        var tank = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax, img: game.add.sprite("Tankb")};
-        var tank2 = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
-        var  = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
-        var tank = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
-        var tank = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
-        var tank = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
-        var tank = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
-        var tank = {player: 1, dmg: 1, hp: 50, mv: 2, mvmax};
+		turn=1;
+        tank = {player: 1, dmg: 1, hp: 50, haveatked: 0, mv: 2, mvmax:2, img: game.add.sprite("Tankb", 100, 100)};
+        tank2 = {player: 2, dmg: 1, hp: 50, haveatked: 0, mv: 2, mvmax: 2, img: game.add.sprite("Tankb", 600, 600)};
+        heavy = {player: 1, dmg: 2, hp: 40, haveatked: 0, mv: 3, mvmax: 3, img: game.add.sprite("Tankb", 0, 100)};
+        heavy2 = {player: 2, dmg: 2, hp: 40,haveatked: 0, mv: 3, mvmax: 3, img: game.add.sprite("Tankb", 700, 600)};
+        solider = {player: 1, dmg: 3, hp: 30,haveatked: 0, mv: 4, mvmax: 4, img: game.add.sprite("Tankb", 0, 0)};
+        solider2 = {player: 2, dmg: 3, hp: 30, haveatked: 0, mv: 4, mvmax: 4, img: game.add.sprite("Tankb", 700, 700)};
+        scout = {player: 1, dmg: 4, hp: 20, haveatked: 0, mv: 4, mvmax: 4, img: game.add.sprite("Tankb", 100, 0)};
+        scout2 = {player: 2, dmg: 4, hp: 20, haveatked: 0, mv: 4, mvmax: 4, img: game.add.sprite("Tankb", 600, 700)};
+		
+		map = game.add.tilemap('Tmap');
+        map.addTilesetImage('map', 'mount');
+		map.addTilesetImage('map', 'grass');
+        layer=map.createLayer('Tile Layer 1');
+		
     }
     
     function update() {
