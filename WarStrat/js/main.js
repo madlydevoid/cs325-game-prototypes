@@ -122,6 +122,15 @@ function make_main_game_state( game )
     	scout.haveatked=0;
     	scout2.mv=scout.mvmax;
     	scout2.haveatked=0;
+    	
+    	tank.txt.text="  hp: "+tank.hp+"\n mv:"+tank.mv;
+    	tank2.txt.text="  hp: "+tank2.hp+"\n mv:"+tank2.mv;
+    	heavy.txt.text="  hp: "+heavy.hp+"\n mv:"+heavy.mv;
+    	heavy2.txt.text="  hp: "+heavy2.hp+"\n mv:"+heavy2.mv;
+    	solider.txt.text="  hp: "+solider.hp+"\n mv:"+solider.mv;
+    	solider2.txt.text="  hp: "+solider2.hp+"\n mv:"+solider2.mv;
+    	scout.txt.text="  hp: "+scout.hp+"\n mv:"+scout.mv;
+    	scout2.txt.text="  hp: "+scout2.hp+"\n mv:"+scout2.mv;
     }
     function attack(team, enemy){
     	if(team.haveatked==1){return;}
