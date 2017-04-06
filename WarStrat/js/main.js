@@ -148,7 +148,7 @@ function make_main_game_state( game )
     	selected.img.y=yt;
     	selected.txt.x=xt+10;
     	selected.txt.y=yt+10;
-    	selected.txt.text="  hp: "+enemy.hp+"\n mv:"+enemy.mv;
+    	selected.txt.text="  hp: "+selected.hp+"\n mv:"+selected.mv;
     }
     //function onEnemy
     function overlapcheck(xcor, ycor){
