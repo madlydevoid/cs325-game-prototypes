@@ -65,7 +65,7 @@ function make_main_game_state( game )
     function update(){
     	if (endKey.isDown && ktimer==0){
     		ktimer=1;
-    		game.time.events.add(Phaser.Timer.SECOND * 3, resettime, this);
+    		game.time.events.add(Phaser.Timer.SECOND * 1, resettime, this);
     		endTurn();
     	}
         game.input.onDown.add(click,this);
