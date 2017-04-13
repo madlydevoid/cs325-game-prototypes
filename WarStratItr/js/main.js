@@ -17,6 +17,11 @@ function make_main_game_state( game )
         game.load.image('mount', 'assets/mountain.png');
         game.load.image('grass', 'assets/tile.png');
         game.load.image('bluecirc', 'assets/bluecirc.png');
+        game.load.audio('Tankshot','assets/tankshot.mp3');
+        game.load.audio('Knightshot','assets/knightshot.mp3');
+        game.load.audio('Solidershot','assets/solidershot.mp3');
+        game.load.audio('Scoutshot','assets/scoutshot.mp3');
+        game.load.audio('blip','assets/blip.wav');
     }
     
     var turn;
@@ -37,9 +42,15 @@ function make_main_game_state( game )
 	var overlap;
 	var ktimer;
 	var circselect, firstturn;
+	var blip,tanksh,knightsh,solidersh,scoutsh;
     function create() {
         //spawn tiles map
         //spawn 4 units on each corner,
+        blip=game.add.audio('blip');
+        tanksh=game.add.audio('Tankshot');
+        knightsh=game.add.audio('Knightshot');
+        solidersh=game.add.audio('Solidershot');
+        scoutsh=game.add.audio('Scoutshot');
         map = game.add.tilemap('Tmap');
         map.addTilesetImage('mountain', 'mount');
 		map.addTilesetImage('land', 'grass');
@@ -86,6 +97,7 @@ function make_main_game_state( game )
 			if(overlap==1){
 				if(selected2.player==turn){
 					console.log('selected');
+					blip.play();
 					selected=selected2;
 					if(circselect!=null){
 						circselect.kill();
@@ -177,6 +189,18 @@ function make_main_game_state( game )
     	team.haveatked=1;
     	if(enemy.type==1 && enemy.fort==1){
     		curdmg=curdmg*0.75;
+    	}
+    	if(team.type==1){
+    		tanksh.play();
+    	}
+    	if(team.type==2){
+    		knightsh.play();
+    	}
+    	if(team.type==3){
+    		solidersh.play();
+    	}
+    	if(team.type==4){
+    		scoutsh.play();
     	}
     	enemy.hp=enemy.hp-curdmg;
     	enemy.txt.text="  hp: "+enemy.hp+"\n mv:"+enemy.mv;
