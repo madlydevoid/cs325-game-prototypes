@@ -22,6 +22,7 @@ function make_main_game_state( game )
         game.load.audio('Solidershot','assets/solidershot.mp3');
         game.load.audio('Scoutshot','assets/scoutshot.mp3');
         game.load.audio('blip','assets/blip.wav');
+        game.load.audio('Warbling','assets/Warbling.mp3');
     }
     
     var turn;
@@ -42,10 +43,11 @@ function make_main_game_state( game )
 	var overlap;
 	var ktimer;
 	var circselect, firstturn;
-	var blip,tanksh,knightsh,solidersh,scoutsh;
+	var blip,tanksh,knightsh,solidersh,scoutsh,ambient;
     function create() {
         //spawn tiles map
         //spawn 4 units on each corner,
+        ambient=game.add.audio('Warbling');
         blip=game.add.audio('blip');
         tanksh=game.add.audio('Tankshot');
         knightsh=game.add.audio('Knightshot');
@@ -78,6 +80,7 @@ function make_main_game_state( game )
 		pieces.add(scout2.img);
 		tank.txt.x+=10;
 		ktimer=0;
+		game.time.events.repeat(Phaser.Timer.SECOND * 15, 0, playSound, this);
     }
     function update(){
     	if (endKey.isDown && ktimer==0){
@@ -87,6 +90,9 @@ function make_main_game_state( game )
     	}
         game.input.onDown.add(click,this);
         
+    }
+    function playSound(){
+    	ambient.play();
     }
     function click(pointer, event){ 
         	//if ovelap on any try grabbing that instead 
@@ -121,6 +127,7 @@ function make_main_game_state( game )
     	return;
     }
     function endTurn(){
+    	blip.play();
     	selected=null;
     	if(turn==1){
     		if(tank.mv==tank.mvmax){
@@ -196,10 +203,10 @@ function make_main_game_state( game )
     	if(team.type==2){
     		knightsh.play();
     	}
-    	if(team.type==3){
+    	if(team.type==4){
     		solidersh.play();
     	}
-    	if(team.type==4){
+    	if(team.type==3){
     		scoutsh.play();
     	}
     	enemy.hp=enemy.hp-curdmg;
